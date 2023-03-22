@@ -4,13 +4,17 @@ import {
     SButtonPanel,
     SButtonWrapper,
     SDashboardWrapper,
+    SSearchBarWrapper,
 } from './Dashboard.styles';
 import { MovieList } from './MovieList';
 import { Button } from '@mui/material';
 import { AiFillBackward, AiFillForward } from 'react-icons/all';
+import { SearchBar } from '../SearchBar/SearchBar';
 
 export const Dashboard = (): JSX.Element => {
     const [movies, setMovies] = useState<IMovie[]>([]);
+
+    const [content, setContent] = React.useState<string>('');
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -25,6 +29,12 @@ export const Dashboard = (): JSX.Element => {
     return (
         <SDashboardWrapper>
             <MovieList movies={movies} />
+            <SSearchBarWrapper>
+                <SearchBar
+                    onSearch={(value) => console.log(value)}
+                    content={content}
+                />
+            </SSearchBarWrapper>
             <SButtonPanel>
                 <SButtonWrapper>
                     <Button

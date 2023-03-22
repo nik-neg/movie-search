@@ -15,3 +15,8 @@ export const SButtonPanel = styled.div`
 export const SButtonWrapper = styled.div`
     padding: 1rem;
 `;
+
+export const SSearchBarWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+`;
