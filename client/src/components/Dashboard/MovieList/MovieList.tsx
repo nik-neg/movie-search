@@ -9,7 +9,11 @@ export const MovieList = ({ movies }: IMovieListProps): JSX.Element => {
         <SMovieListWrapper>
             {movies?.map((movie) => {
                 return (
-                    <Link to="movie" state={{ movie: movie }}>
+                    <Link
+                        key={movie?.imdbID}
+                        to="movie"
+                        state={{ movie: movie }}
+                    >
                         <Movie key={movie?.imdbID} movie={movie} />
                     </Link>
                 );
