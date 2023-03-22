@@ -9,12 +9,18 @@ function App() {
 
     const [content, setContent] = useState<string>('');
 
+    const [page, setPage] = useState(1);
+
     const handleSearch = (value: string) => {
         setContent(value);
     };
 
     const handleFetchMovies = (movies: IMovie[]) => {
         setMovies(movies);
+    };
+
+    const handlePagination = (page: number) => {
+        setPage(page);
     };
 
     return (
@@ -26,8 +32,10 @@ function App() {
                         <Dashboard
                             movies={movies}
                             content={content}
+                            page={page}
                             onFetchMovies={handleFetchMovies}
                             onHandleSearch={handleSearch}
+                            onHandlePagination={handlePagination}
                         />
                     }
                 />

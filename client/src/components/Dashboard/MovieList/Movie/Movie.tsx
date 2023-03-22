@@ -1,11 +1,22 @@
-import { IMovie, IMovieProps } from './types';
-import { SMovieWrapper } from './Movie.styles';
+import { IMovie } from './types';
+import {
+    SDetailsColumn,
+    SImageWrapper,
+    SMovieDirector,
+    SMovieGenre,
+    SMoviePlot,
+    SMovieRatingRow,
+    SMovieRatingSource,
+    SMovieRatingValue,
+    SMovieTitle,
+    SMovieWrapper,
+} from './Movie.styles';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { IoArrowBackOutline } from 'react-icons/all';
 
-export const Movie = ({ movie }: IMovieProps): JSX.Element => {
+export const Movie = (): JSX.Element => {
     const API_KEY = import.meta.env.VITE_API_KEY;
 
     let { state } = useLocation();
@@ -32,34 +43,42 @@ export const Movie = ({ movie }: IMovieProps): JSX.Element => {
     };
     return (
         <SMovieWrapper>
-            <img
-                src={state.movie?.Poster}
-                alt={state.movie?.Title}
-                style={{ height: '200px' }}
-            />
-            <div>{movieDetails?.Title}</div>
-            <div>{movieDetails?.Genre}</div>
+            <SDetailsColumn>
+                <SImageWrapper
+                    src={state.movie?.Poster}
+                    alt={state.movie?.Title}
+                />
+            </SDetailsColumn>
+            <SDetailsColumn>
+                <SMovieTitle>{movieDetails?.Title}</SMovieTitle>
 
-            <div>{movieDetails?.Director}</div>
+                <SMovieGenre>{movieDetails?.Genre}</SMovieGenre>
 
-            <div>{movieDetails?.Plot}</div>
+                <SMovieDirector>{movieDetails?.Director}</SMovieDirector>
 
-            {movieDetails?.Ratings?.map((rating) => {
-                return (
-                    <>
-                        <div>{rating.Source}</div>
-                        <div>{rating.Value}</div>
-                    </>
-                );
-            })}
-            <Button
-                variant="contained"
-                endIcon={<IoArrowBackOutline />}
-                style={{ backgroundColor: '#6B728E', width: '10rem' }}
-                onClick={handleClick}
-            >
-                Back
-            </Button>
+                <SMoviePlot>{movieDetails?.Plot}</SMoviePlot>
+
+                {movieDetails?.Ratings?.map((rating) => {
+                    return (
+                        <SMovieRatingRow>
+                            <SMovieRatingSource>
+                                {rating.Source}
+                            </SMovieRatingSource>
+                            <SMovieRatingValue>
+                                {rating.Value}
+                            </SMovieRatingValue>
+                        </SMovieRatingRow>
+                    );
+                })}
+                <Button
+                    variant="contained"
+                    endIcon={<IoArrowBackOutline />}
+                    style={{ backgroundColor: '#6B728E', width: '10rem' }}
+                    onClick={handleClick}
+                >
+                    Back
+                </Button>
+            </SDetailsColumn>
         </SMovieWrapper>
     );
 };

@@ -1,3 +1,8 @@
+export interface IImageProps {
+    src?: string;
+    alt?: string;
+}
+
 export interface IRating {
     Source?: string;
     Value?: string;
