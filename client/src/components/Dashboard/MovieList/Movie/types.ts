@@ -32,5 +32,5 @@ export interface IMovie {
 }
 
 export interface IMovieProps {
-    movie: IMovie;
+    movie?: IMovie;
 }
