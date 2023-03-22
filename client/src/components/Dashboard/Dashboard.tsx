@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { IMovie } from './MovieList/Movie';
+import React, { useEffect } from 'react';
 import {
     SButtonPanel,
     SButtonWrapper,
@@ -10,30 +9,35 @@ import { MovieList } from './MovieList';
 import { Button } from '@mui/material';
 import { AiFillBackward, AiFillForward } from 'react-icons/all';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { IDashboardProps } from './types';
 
-export const Dashboard = (): JSX.Element => {
-    const [movies, setMovies] = useState<IMovie[]>([]);
-
-    const [content, setContent] = React.useState<string>('');
-
+export const Dashboard = ({
+    movies,
+    content,
+    onFetchMovies,
+    onHandleSearch,
+}: IDashboardProps): JSX.Element => {
     useEffect(() => {
         const fetchMovies = async () => {
             const response = await fetch(
-                'http://www.omdbapi.com/?s=matrix&apikey=3e6650a7'
+                `http://www.omdbapi.com/?s=${
+                    content ?? 'matrix'
+                }&apikey=3e6650a7`
             );
             const data = await response.json();
-            setMovies(data.Search);
+            onFetchMovies?.(data.Search);
         };
-        fetchMovies();
-    }, []);
+        if (content.length > 3) {
+            fetchMovies();
+        } else {
+            onFetchMovies?.([]);
+        }
+    }, [content]);
     return (
         <SDashboardWrapper>
             <MovieList movies={movies} />
             <SSearchBarWrapper>
-                <SearchBar
-                    onSearch={(value) => console.log(value)}
-                    content={content}
-                />
+                <SearchBar onSearch={onHandleSearch} content={content} />
             </SSearchBarWrapper>
             <SButtonPanel>
                 <SButtonWrapper>
