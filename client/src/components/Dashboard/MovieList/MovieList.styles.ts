@@ -5,3 +5,7 @@ export const SMovieListWrapper = styled.div`
     display: flex;
     justify-content: center;
 `;
+
+export const SMovieImageWrapper = styled.div`
+    padding: 1rem;
+`;

@@ -18,23 +18,23 @@ export const Dashboard = ({
     onHandleSearch,
 }: IDashboardProps): JSX.Element => {
     const API_KEY = import.meta.env.VITE_API_KEY;
-    console.log({ API_KEY });
+
     useEffect(() => {
         const fetchMovies = async () => {
             const response = await fetch(
-                `http://www.omdbapi.com/?s=${
-                    content ?? 'matrix'
-                }&apikey=${API_KEY}`
+                `http://www.omdbapi.com/?s=${content}&apikey=${API_KEY}`
             );
             const data = await response.json();
             onFetchMovies?.(data.Search);
         };
+
         if (content.length > 3) {
             fetchMovies();
         } else {
             onFetchMovies?.([]);
         }
     }, [content]);
+
     return (
         <SDashboardWrapper>
             <MovieList movies={movies} />
