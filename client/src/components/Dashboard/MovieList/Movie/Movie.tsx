@@ -15,6 +15,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { IoArrowBackOutline } from 'react-icons/all';
+import { isEmpty } from 'lodash';
 
 export const Movie = (): JSX.Element => {
     const API_KEY = import.meta.env.VITE_API_KEY;
@@ -34,7 +35,7 @@ export const Movie = (): JSX.Element => {
             const data = await response.json();
             setMovieDetails(data);
         };
-
+        setMovieDetails({});
         fetchMovie();
     }, []);
 
@@ -49,6 +50,7 @@ export const Movie = (): JSX.Element => {
                     alt={state.movie?.Title}
                 />
             </SDetailsColumn>
+            {isEmpty(movieDetails) && <div>Loading...</div>}
             <SDetailsColumn>
                 <SMovieTitle>{movieDetails?.Title}</SMovieTitle>
 
@@ -58,9 +60,9 @@ export const Movie = (): JSX.Element => {
 
                 <SMoviePlot>{movieDetails?.Plot}</SMoviePlot>
 
-                {movieDetails?.Ratings?.map((rating) => {
+                {movieDetails?.Ratings?.map((rating, index) => {
                     return (
-                        <SMovieRatingRow>
+                        <SMovieRatingRow key={index.toString()}>
                             <SMovieRatingSource>
                                 {rating.Source}
                             </SMovieRatingSource>
