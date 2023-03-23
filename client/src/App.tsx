@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { SAppWrapper } from './App.styles';
+import { Dashboard } from './components/Dashboard';
+import { Route, Routes } from 'react-router-dom';
+import { IMovie, Movie } from './components/Dashboard/MovieList/Movie';
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [movies, setMovies] = useState<IMovie[]>([]);
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    const [content, setContent] = useState<string>('');
+
+    const [page, setPage] = useState(1);
+
+    const handleSearch = (value: string) => {
+        setContent(value);
+    };
+
+    const handleFetchMovies = (movies: IMovie[]) => {
+        setMovies(movies);
+    };
+
+    const handlePagination = (page: number) => {
+        setPage(page);
+    };
+
+    return (
+        <SAppWrapper>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Dashboard
+                            movies={movies}
+                            content={content}
+                            page={page}
+                            onFetchMovies={handleFetchMovies}
+                            onHandleSearch={handleSearch}
+                            onHandlePagination={handlePagination}
+                        />
+                    }
+                />
+                <Route path="/movie" element={<Movie />} />
+            </Routes>
+        </SAppWrapper>
+    );
 }
 
-export default App
+export default App;
