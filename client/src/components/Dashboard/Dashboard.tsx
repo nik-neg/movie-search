@@ -9,7 +9,7 @@ import { MovieList } from './MovieList';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { IDashboardProps } from './types';
 import { Button } from '@mui/material';
-import { AiFillBackward, AiFillForward } from 'react-icons/all';
+import { AiFillBackward, AiFillForward } from 'react-icons/ai';
 
 export const Dashboard = ({
     movies,

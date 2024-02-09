@@ -14,7 +14,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { IoArrowBackOutline } from 'react-icons/all';
+import { IoArrowBackOutline } from 'react-icons/io5';
 import { isEmpty } from 'lodash';
 
 export const Movie = (): JSX.Element => {
